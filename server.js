@@ -15,7 +15,7 @@ io.on("connection", (socket) => {
   console.log("New ws Connection......");
 
   //Single client that he is connecting
-  socket.emit("message", "Welcome to FlashChat");
+  socket.emit("message", "Welcome to Flash⚡Chat");
 
   //Broadcast to all except the one connecting
   socket.broadcast.emit("message", "A user has joined the chat");
