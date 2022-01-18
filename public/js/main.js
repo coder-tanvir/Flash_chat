@@ -2,6 +2,15 @@ const chatForm = document.getElementById("chat-form");
 const chatMessages = document.querySelector(".chat-messages");
 const socket = io();
 
+//Queries
+const { username, room } = Qs.parse(location.search, {
+  ignoreQueryPrefix: true,
+});
+console.log(username, room);
+
+///Emits username
+socket.emit("chatroom", { username, room });
+
 socket.on("message", (message) => {
   console.log(message);
   outputmessage(message);
@@ -14,8 +23,8 @@ socket.on("message", (message) => {
 function outputmessage(message) {
   const div = document.createElement("div");
   div.classList.add("message");
-  div.innerHTML = `<p class="meta">Brad<span>9:12pm</span></p>
-  <p class="text">${message}</p>`;
+  div.innerHTML = `<p class="meta">${message.username}<span>${message.time}</span></p>
+  <p class="text">${message.text}</p>`;
   document.querySelector(".chat-messages").appendChild(div);
 }
 
