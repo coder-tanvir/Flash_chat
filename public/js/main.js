@@ -11,6 +11,11 @@ console.log(username, room);
 ///Emits username
 socket.emit("chatroom", { username, room });
 
+socket.on("roomusers", ({ room, users }) => {
+  outputroomname(room);
+  outputusers(users);
+});
+
 socket.on("message", (message) => {
   console.log(message);
   outputmessage(message);
@@ -38,3 +43,14 @@ chatForm.addEventListener("submit", (e) => {
   e.target.elements.msg.value = "";
   e.target.elements.msg.focus();
 });
+
+const roomname = document.getElementById("room-name");
+const userlist = document.getElementById("users");
+function outputroomname(room) {
+  roomname.innerText = room;
+}
+function outputusers(users) {
+  userlist.innerHTML = `
+  ${users.map((user) => `<li>${user.username}</li>`).join("")}
+  `;
+}
